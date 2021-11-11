@@ -1,18 +1,15 @@
 FROM python:3
 
-RUN pip install --upgrade pip
-ENV PYTHONUNBUFFERED 1
-ENV APP /app
-#RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
-RUN mkdir $APP
-WORKDIR $APP
-ADD requirements.txt .
-RUN pip install -r requirements.txt
+WORKDIR /app
+
+COPY requirements.txt requirements.txt
+RUN pip3 install -r requirements.txt
 
 COPY . .
-# # These line for /entrypoint.sh
-# COPY start.sh /start.sh
-# RUN chmod +x /start.sh
-# entrypoint  "start.sh"  
-#CMD ["./start.sh"]
-EXPOSE 5000:5000
+
+# ENV FLASK_APP="entrypoint:app"
+# ENV FLASK_ENV="development"
+# ENV APP_SETTINGS_MODULE="config.default"
+# ENV DATABASE_URL="postgresql://postgres:postgres@localhost/postgres"
+
+CMD [ "python3", "-m" , "flask", "run", "--host=0.0.0.0"]
