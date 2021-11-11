@@ -1,0 +1,9 @@
+version: "2"
+
+services:
+  api:
+    build: .
+    #container_name: app
+    command: /bin/sh -c "./start.sh"
+    expose:
+      - "5000"
