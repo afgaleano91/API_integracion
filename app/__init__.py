@@ -10,7 +10,6 @@ from .ext import ma, migrate
 def create_app(settings_module):
     app = Flask(__name__)
     app.config.from_object(settings_module)
-
     # Inicializa las extensiones
     db.init_app(app)
     ma.init_app(app)

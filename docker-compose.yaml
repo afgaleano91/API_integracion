@@ -1,0 +1,41 @@
+version: "3.7"
+
+services:
+
+#docker run -dp 3000:3000 --network todo-app -e MYSQL_HOST=mysql -e MYSQL_USER=root -e MYSQL_PASSWORD=secret -e MYSQL_DB=todos getting-started:v2
+
+  app:
+    restart: always
+    build: .
+    command: >
+        sh -c "flask db init &&
+        flask db upgrade &&
+        flask run -h 0.0.0.0"
+      #Anadir el comando flask db migrate -m "Initial_db" && en la linea command solo si es nuevo el build
+    ports:
+      - 5000:5000
+    env_file:
+      - ./.env.dev
+    depends_on:
+      - postgres
+
+  
+# docker run -d     --network todo-app --network-alias mysql     -v todo-mysql-data:/var/lib/mysql     -e MYSQL_ROOT_PASSWORD=secret     -e MYSQL_DATABASE=todos     mysql:5.7
+
+  postgres:
+      image: postgres:10.5
+      restart: always
+      environment:
+        - POSTGRES_USER=postgres
+        - POSTGRES_PASSWORD=postgres
+#     logging:
+#       options:
+#         max-size: 10m
+#         max-file: "3"
+      ports:
+        - '5432:5432'
+
+      volumes: 
+        - ./postgres-data:/var/lib/postgresql/data
+      # copy the sql script to create tables
+      #- ./sql/create_tables.sql:/docker-entrypoint-initdb.d/create_tables.sql
