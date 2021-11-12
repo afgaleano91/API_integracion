@@ -9,9 +9,9 @@ services:
     build: .
     command: >
         sh -c "flask db init &&
-        flask db migrate -m "Initial_db" &&
         flask db upgrade &&
         flask run -h 0.0.0.0"
+      #Anadir el comando flask db migrate -m "Initial_db" && en la linea command solo si es nuevo el build
     ports:
       - 5000:5000
     env_file:
