@@ -11,13 +11,11 @@ pipeline {
     stages {
         stage('Start app and BD') {
             steps{
-                powershell('cd API_integracion') 
                 powershell('docker-compose up -d --build')
             }
         }
         stage('Stop app and BD') {
             steps{
-                powershell('cd API_integracion') 
                 powershell('docker-compose down')
             }
         }
