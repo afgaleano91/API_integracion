@@ -11,14 +11,12 @@ pipeline {
     stages {
         stage('Start app and BD') {
             steps{
-                cd API_integracion
-                docker-compose up -d --build
+                docker-compose up -d --build API_integracion/
             }
         }
         stage('Stop app and BD') {
             steps{
-                cd API_integracion
-                docker-compose down
+                docker-compose down API_integracion/
             }
         }
     }
