@@ -11,14 +11,14 @@ pipeline {
     stages {
         stage('Start app and BD') {
             steps{
-                cmd_exec(cd API_integracion) 
-                cmd_exec(docker-compose up -d --build)
+                cmd_exec('cd API_integracion') 
+                cmd_exec('docker-compose up -d --build')
             }
         }
         stage('Stop app and BD') {
             steps{
-                cmd_exec(cd API_integracion) 
-                cmd_exec(docker-compose down)
+                cmd_exec('cd API_integracion') 
+                cmd_exec('docker-compose down')
             }
         }
     }
