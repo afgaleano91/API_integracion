@@ -1,9 +1,8 @@
 pipeline {
     agent any
     // tools {
-    //     python 'deafult'
+    //  name: 'Default', type: 'git'
     // }
-
     options {
         timeout(time: 5, unit: 'MINUTES')
     }
