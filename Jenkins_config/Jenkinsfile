@@ -1,0 +1,22 @@
+pipeline {
+    agent any
+    // tools {
+    //  name: 'Default', type: 'git'
+    // }
+    options {
+        timeout(time: 5, unit: 'MINUTES')
+    }
+
+    stages {
+        stage('Start app and BD') {
+            steps{
+                powershell('docker-compose up -d --build')
+            }
+        }
+        stage('Stop app and BD') {
+            steps{
+                powershell('docker-compose down')
+            }
+        }
+    }
+}
