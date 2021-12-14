@@ -1,0 +1,25 @@
+pipeline {
+    agent any
+    // tools {
+    //     python 'deafult'
+    // }
+
+    options {
+        timeout(time: 5, unit: 'MINUTES')
+    }
+
+    stages {
+        stage('Start app and BD') {
+            steps{
+                cd API_integracion
+                docker-compose up -d --build
+            }
+        }
+        stage('Stop app and BD') {
+            steps{
+                cd API_integracion
+                docker-compose down
+            }
+        }
+    }
+}
